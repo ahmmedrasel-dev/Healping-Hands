@@ -33,8 +33,6 @@ const Login = () => {
 
   // Sign In with Google.
 
-
-
   const handleGogleLogin = () => {
     signInWithGoogle(email, password);
   }
