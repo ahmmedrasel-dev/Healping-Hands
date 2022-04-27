@@ -1,9 +1,12 @@
 import React from 'react';
+import Activities from '../Activities/Activities';
+import Search from '../Serchbox/Search';
 
 const Home = () => {
   return (
-    <div>
-      <h1>This is Home</h1>
+    <div className='container mx-auto'>
+      <Search></Search>
+      <Activities></Activities>
     </div>
   );
 };
