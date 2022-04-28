@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -17,6 +17,12 @@ const Login = () => {
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
+
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
+
   // Sign In with Email And Password 
   const handleSubmit = e => {
     e.preventDefault()
@@ -29,6 +35,7 @@ const Login = () => {
 
   if (user) {
     toast.success('User Login Successfullay');
+    navigate(from, { replace: true });
   }
 
   // Sign In with Google.
@@ -39,17 +46,18 @@ const Login = () => {
 
   if (googleUser) {
     toast.success('Sign in User:', googleUser);
+    navigate(from, { replace: true });
   }
 
   useEffect(() => {
     if (googleError) {
       toast.error(googleError.message)
     }
-
     if (hookError) {
       toast.error(hookError.message)
     }
   }, [googleError, hookError])
+
 
 
   return (
